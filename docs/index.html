@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.gstatic.com; connect-src 'self' https://www.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://www.gstatic.com; frame-src https://*.firebaseapp.com https://*.web.app;"
+    />
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app" aria-label="Stopwatch">
+      <header class="app__header">
+        <h1>Stopwatch</h1>
+        <p class="subtitle">Sign in to use the stopwatch.</p>
+      </header>
+
+      <section id="authCard" class="card" aria-label="Authentication">
+        <div class="card__row">
+          <h2 class="card__title">Account</h2>
+          <span id="userBadge" class="badge hidden"></span>
+        </div>
+
+        <div id="signedOutPanel">
+          <div class="authGrid">
+            <label class="field">
+              <span>Email</span>
+              <input id="email" type="email" autocomplete="email" placeholder="you@example.com" />
+            </label>
+
+            <label class="field">
+              <span>Password</span>
+              <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+            </label>
+          </div>
+
+          <div class="controls controls--left">
+            <button id="emailSignUpBtn" class="btn btn--primary">Sign up</button>
+            <button id="emailSignInBtn" class="btn">Sign in</button>
+            <button id="googleSignInBtn" class="btn">Google</button>
+          </div>
+
+          <p id="authError" class="message message--error hidden" role="alert"></p>
+          <p class="hint">
+            Note: You must set your Firebase config in <code>app.js</code> and enable providers in the Firebase Console.
+          </p>
+        </div>
+
+        <div id="signedInPanel" class="hidden">
+          <div class="controls controls--left">
+            <button id="signOutBtn" class="btn">Sign out</button>
+          </div>
+          <p id="authInfo" class="message"></p>
+        </div>
+      </section>
+
+      <section id="stopwatchCard" class="card hidden" aria-label="Timer">
+        <div class="time" aria-live="polite" aria-atomic="true">
+          <span id="time" class="time__value">00:00.00</span>
+        </div>
+
+        <div class="controls" aria-label="Controls">
+          <button id="startPauseBtn" class="btn btn--primary">Start</button>
+          <button id="lapBtn" class="btn" disabled>Lap</button>
+          <button id="resetBtn" class="btn btn--danger" disabled>Reset</button>
+        </div>
+
+        <div class="meta">
+          <span id="status" class="status">Ready</span>
+          <span id="hint" class="hint">Tip: Space to start/pause, R to reset, L for lap.</span>
+        </div>
+      </section>
+
+      <section id="lapsCard" class="card hidden" aria-label="Laps">
+        <div class="laps__header">
+          <h2>Laps</h2>
+          <button id="clearLapsBtn" class="btn btn--ghost" disabled>Clear</button>
+        </div>
+        <ol id="laps" class="laps" aria-label="Lap times"></ol>
+      </section>
+
+      <section id="accountCard" class="card hidden" aria-label="Account actions">
+        <div class="card__row">
+          <h2 class="card__title">Account deletion</h2>
+          <span id="deleteStatus" class="badge badge--muted">No request</span>
+        </div>
+
+        <p class="hint">
+          You can request account deletion. An admin must approve your request (in Firestore). After approval, you can delete your account.
+        </p>
+
+        <div class="controls controls--left">
+          <button id="requestDeletionBtn" class="btn">Request deletion</button>
+          <button id="checkApprovalBtn" class="btn">Check approval</button>
+          <button id="deleteAccountBtn" class="btn btn--danger" disabled>Delete my account</button>
+        </div>
+
+        <p id="accountMsg" class="message hidden" role="status"></p>
+      </section>
+
+      <footer class="footer">
+        <small>Hosted on GitHub Pages. Auth by Firebase.</small>
+      </footer>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
